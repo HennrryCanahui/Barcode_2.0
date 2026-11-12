@@ -1,22 +1,36 @@
-import { invoke } from "@tauri-apps/api/core";
+const inputCodigo = document.querySelector<HTMLInputElement>("#input-codigo");
+const inputCantidad = document.querySelector<HTMLInputElement>("#input-cantidad");
+const inputPrecio = document.querySelector<HTMLInputElement>("#input-precio");
+const btnAgregar = document.querySelector<HTMLButtonElement>("#btn-agregar");
+const tablaCuerpo = document.querySelector<HTMLTableSectionElement>("#tabla-cuerpo");
 
-let greetInputEl: HTMLInputElement | null;
-let greetMsgEl: HTMLElement | null;
+btnAgregar?.addEventListener("click", () => {
+  if (!inputCodigo || !inputCodigo.value.trim()) return;
 
-async function greet() {
-  if (greetMsgEl && greetInputEl) {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    greetMsgEl.textContent = await invoke("greet", {
-      name: greetInputEl.value,
+  const codigo = inputCodigo.value.trim();
+  const cantidad = inputCantidad?.value.trim() || "1";
+  const precio = inputPrecio?.value.trim() || "0.00";
+
+  if (tablaCuerpo) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${codigo}</td>
+      <td>${cantidad}</td>
+      <td>Q ${precio}</td>
+      <td><button class="btn-eliminar" style="background:transparent; border:none; color:#f85149; cursor:pointer; font-weight:600;">Eliminar</button></td>
+    `;
+
+    // Botón para eliminar la fila al hacer clic
+    tr.querySelector(".btn-eliminar")?.addEventListener("click", () => {
+      tr.remove();
     });
-  }
-}
 
-window.addEventListener("DOMContentLoaded", () => {
-  greetInputEl = document.querySelector("#greet-input");
-  greetMsgEl = document.querySelector("#greet-msg");
-  document.querySelector("#greet-form")?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    greet();
-  });
+    tablaCuerpo.appendChild(tr);
+
+    // Limpiar inputs
+    inputCodigo.value = "";
+    if (inputCantidad) inputCantidad.value = "";
+    if (inputPrecio) inputPrecio.value = "";
+    inputCodigo.focus();
+  }
 });
