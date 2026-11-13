@@ -28,15 +28,17 @@
         </div>
       </div>
 
-      <div class="actions-grid-primary">
-        <button id="btn-agregar" class="btn btn-blue">+ Agregar</button>
-        <button id="btn-generar" class="btn btn-yellow">Generar</button>
-        <button id="btn-pdf" class="btn btn-green">PDF</button>
-      </div>
+      <div class="actions-group">
+        <div class="actions-grid-primary">
+          <button id="btn-agregar" class="btn btn-blue">＋ Agregar</button>
+          <button id="btn-generar" class="btn btn-yellow">⚄ Generar</button>
+          <button id="btn-pdf" class="btn btn-green">🖹 PDF</button>
+        </div>
 
-      <div class="actions-grid-secondary">
-        <button id="btn-ajustes" class="btn btn-purple">⚙ Ajustes</button>
-        <button id="btn-imprimir" class="btn btn-teal">🖨 Imprimir</button>
+        <div class="actions-grid-secondary">
+          <button id="btn-ajustes" class="btn btn-purple">⚙ Ajustes</button>
+          <button id="btn-imprimir" class="btn btn-teal">🖨 Imprimir</button>
+        </div>
       </div>
     </section>
 
@@ -59,6 +61,124 @@
         </table>
       </div>
     </section>
+  </div>
+
+  <!-- Modal de Ajustes y Configuración -->
+  <div id="modal-ajustes" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <h2 id="modal-title" class="modal-title">⚙ Configuración y Ajustes</h2>
+        <button id="btn-cerrar-ajustes" class="modal-close" aria-label="Cerrar modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Sección 1: PDF -->
+        <fieldset class="config-section">
+          <legend class="config-legend">📄 Página y Márgenes (PDF)</legend>
+          <div class="config-grid">
+            <div class="field-group">
+              <label for="cfg-pagesize">Tamaño de Página</label>
+              <input id="cfg-pagesize" type="text" value="LETTER" readonly class="input-readonly" />
+            </div>
+            <div class="field-group">
+              <label for="cfg-margen-superior">Margen Superior (cm)</label>
+              <input id="cfg-margen-superior" type="number" step="0.05" min="0" />
+            </div>
+            <div class="field-group">
+              <label for="cfg-margen-inferior">Margen Inferior (cm)</label>
+              <input id="cfg-margen-inferior" type="number" step="0.05" min="0" />
+            </div>
+            <div class="field-group">
+              <label for="cfg-margen-izquierdo">Margen Izquierdo (cm)</label>
+              <input id="cfg-margen-izquierdo" type="number" step="0.05" min="0" />
+            </div>
+            <div class="field-group">
+              <label for="cfg-margen-derecho">Margen Derecho (cm)</label>
+              <input id="cfg-margen-derecho" type="number" step="0.05" min="0" />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Sección 2: Código de Barras -->
+        <fieldset class="config-section">
+          <legend class="config-legend">🏷 Código de Barras</legend>
+          <div class="config-grid">
+            <div class="field-group">
+              <label for="cfg-barcode-tipo">Tipo de Código</label>
+              <input id="cfg-barcode-tipo" type="text" value="CODE128" readonly class="input-readonly" />
+            </div>
+            <div class="field-group">
+              <label for="cfg-barcode-ancho">Ancho (cm)</label>
+              <input id="cfg-barcode-ancho" type="number" step="0.05" min="0.5" />
+            </div>
+            <div class="field-group">
+              <label for="cfg-barcode-alto">Alto (cm)</label>
+              <input id="cfg-barcode-alto" type="number" step="0.05" min="0.2" />
+            </div>
+            <div class="field-group checkbox-field">
+              <label class="checkbox-label" for="cfg-barcode-texto">
+                <input id="cfg-barcode-texto" type="checkbox" />
+                <span>Mostrar texto integrado en barras</span>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Sección 3: Grilla -->
+        <fieldset class="config-section">
+          <legend class="config-legend">📐 Grilla y Distribución</legend>
+          <div class="config-grid">
+            <div class="field-group">
+              <label for="cfg-grilla-columnas">Códigos por fila</label>
+              <input id="cfg-grilla-columnas" type="number" step="1" min="1" max="20" />
+            </div>
+            <div class="field-group">
+              <label for="cfg-grilla-hgap">Espacio horizontal (cm)</label>
+              <input id="cfg-grilla-hgap" type="number" step="0.05" min="0" />
+            </div>
+            <div class="field-group">
+              <label for="cfg-grilla-vgap">Espacio vertical (cm)</label>
+              <input id="cfg-grilla-vgap" type="number" step="0.05" min="0" />
+            </div>
+            <div class="field-group">
+              <label for="cfg-grilla-precio-space">Espacio reservado precio (cm)</label>
+              <input id="cfg-grilla-precio-space" type="number" step="0.05" min="0" />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Sección 4: Precio -->
+        <fieldset class="config-section">
+          <legend class="config-legend">💲 Configuración del Precio</legend>
+          <div class="config-grid">
+            <div class="field-group">
+              <label for="cfg-precio-fuente">Fuente</label>
+              <input id="cfg-precio-fuente" type="text" value="Helvetica-Bold" readonly class="input-readonly" />
+            </div>
+            <div class="field-group">
+              <label for="cfg-precio-tamano">Tamaño de fuente (pt)</label>
+              <input id="cfg-precio-tamano" type="number" step="1" min="6" max="72" />
+            </div>
+            <div class="field-group">
+              <label for="cfg-precio-prefijo">Prefijo monetario</label>
+              <input id="cfg-precio-prefijo" type="text" maxlength="5" />
+            </div>
+            <div class="field-group">
+              <label for="cfg-precio-offset-y">Desplazamiento vertical offset_y (cm)</label>
+              <input id="cfg-precio-offset-y" type="number" step="0.05" min="0" />
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="modal-footer">
+        <button id="btn-reset-ajustes" class="btn btn-muted">↺ Valores por Defecto</button>
+        <div class="modal-footer-actions">
+          <button id="btn-cancelar-ajustes" class="btn btn-secondary">Cancelar</button>
+          <button id="btn-guardar-ajustes" class="btn btn-blue">💾 Guardar Ajustes</button>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 

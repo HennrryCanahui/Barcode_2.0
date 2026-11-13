@@ -14,10 +14,10 @@
     "windows": [
       {
         "title": "Generador de códigos de barras",
-        "width": 657,
+        "width": 800,
         "height": 700,
-        "minWidth": 657,
-        "minHeight": 700,
+        "minWidth": 460,
+        "minHeight": 500,
         "resizable": true
       }
     ],
